@@ -1,0 +1,12 @@
+{
+  "name": "gatewayserver",
+  "version": "1.0.0",
+  "main": "seerver.js\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
