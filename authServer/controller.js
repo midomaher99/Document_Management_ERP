@@ -25,7 +25,7 @@ module.exports.login = catchAsync(async (req, res, next) => {
     if (parsedResponse.status === 'failed') {
         res.status(401).json({
             status: 'failed',
-            message: `Invalid ${authMethod} or password`
+            data: { message: `Invalid ${authMethod} or password` }
         })
         return
     }
@@ -36,13 +36,13 @@ module.exports.login = catchAsync(async (req, res, next) => {
     if (!isCorrectPassword) {
         res.status(401).json({
             status: 'failed',
-            message: `Invalid ${authMethod} or password`
+            data: { message: `Invalid ${authMethod} or password` }
         })
         return
     }
     //trigger otp(email or sms) return ok
     res.status(200).json({
         status: 'success',
-        message: `check your ${authMethod}`
+        data: { message: `check your ${authMethod}` }
     })
 })
