@@ -17,7 +17,7 @@ module.exports.getCredentials = async (req, res, next) => {
             .json(
                 {
                     status: 'failed',
-                    data: { message: 'Invalid Email or phone' }
+                    data: { message: 'User not found' }
                 }
             )
         return
