@@ -9,7 +9,7 @@ const port = process.env.PORT * 1
 mongoose
     .connect(DB)
     .then(() => {
-        console.log("DB connected")
+        console.log("Users DB connected")
     })
 
 const server = app.listen(port, () => {

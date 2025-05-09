@@ -1,5 +1,6 @@
 const validator = require('validator')
-const { parsePhoneNumberFromString, isValidNumber } = require('libphonenumber-js');
+const JWT = require('jsonwebtoken')
+const { parsePhoneNumberFromString } = require('libphonenumber-js');
 
 const catchAsync = require(`${__dirname}/catchAsync`)
 
@@ -14,13 +15,11 @@ module.exports.login = catchAsync(async (req, res, next) => {
     let isValidCredentials = true
     //validate email or phone
     if (email) {
-        console.log(email)
         authMethod = 'email'
         email = email.toLowerCase()
         if (!validator.isEmail(email)) {
             isValidCredentials = false
         }
-        console.log({ email, isValidCredentials })
     } else if (phone) {
         authMethod = 'phone'
         const parsedPhone = parsePhoneNumberFromString(phone, 'EG');
@@ -39,7 +38,7 @@ module.exports.login = catchAsync(async (req, res, next) => {
         return
     }
 
-    // communicate auth server to authenticate user
+    // communicate auth server to authenticate
     const response = await fetch(`${authServerUrl}/auth/login/password`, {
         method: 'POST',
         headers: {
@@ -56,3 +55,16 @@ module.exports.login = catchAsync(async (req, res, next) => {
             responseBody
         })
 })
+
+module.exports.tokenLogin = async (req, res, next) => {
+    const response = await fetch(`${authServerUrl}/auth/login/otp-token`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, phone, password })
+    })
+}
+module.exports.otpLogin = (req, res, next) = {
+
+}
