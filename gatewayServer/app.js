@@ -1,11 +1,12 @@
 const express = require('express')
-const controller = require(`${__dirname}/controller`)
-
+const authController = require(`${__dirname}/controllers/authController`)
+const { errHandler } = require(`${__dirname}/controllers/errorController`)
 const app = express()
 
 app.use(express.json())
 
-app.post('/api/auth/login', controller.login)
-app.get('/api/auth/login-token/:token', controller.tokenLogin)
-app.post('/api/auth/login-otp', controller.otpLogin)
+app.post('/api/auth/request-verification', authController.validateCredentials, authController.requestVerification)
+app.get('/api/auth/verify-email-link/:token', authController.verifyEmailLink)
+app.post('/api/auth/verify-otp', authController.verifyOtp)
+app.use(errHandler)
 module.exports = app

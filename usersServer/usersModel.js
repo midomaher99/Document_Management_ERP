@@ -47,6 +47,23 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+
+function normalizeQueryConditions(next) {
+    if (this._conditions.email) {
+        this._conditions.email = this._conditions.email.toLowerCase();
+    }
+
+    if (this._conditions.phone) {
+        const parsed = parsePhoneNumberFromString(this._conditions.phone, 'EG');
+        if (parsed && parsed.isValid()) {
+            this._conditions.phone = parsed.number;
+        }
+    }
+    next();
+}
+
+userSchema.pre('findOne', normalizeQueryConditions);
+
 const User = new mongoose.model('User', userSchema)
 
 module.exports = User
